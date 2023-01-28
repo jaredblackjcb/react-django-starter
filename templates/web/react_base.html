@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--IE compatibility-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--Mobile friendly-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>React App</title>
+    <link rel="stylesheet" href="{% static 'css/site-base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/site-bootstrap.css' %}">
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/v4-shims.min.css" integrity="sha512-ARfx5eajdcCAuWvuJrgUuJ6D25ON3KZRTCghNXXKeJldCQJ5bXS+6CvG2EhcFWITF95uwZydzpufSKvhmSpTxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript">__cssFramework = 'bootstrap';</script>
+    <script src="{% url 'javascript-catalog' %}"></script>
+    <script src="{% static 'js/site-bootstrap-bundle.js' %}"></script>
+</head>
+<body>
+  {% block app %}
+  {% endblock %}
+</body>
+</html>

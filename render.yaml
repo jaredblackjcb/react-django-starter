@@ -1,0 +1,127 @@
+services:
+  - type: web
+    name: starter_app
+    env: python
+    buildCommand: "./deploy/build.sh"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 starter_app.wsgi:application"
+    region: oregon
+    plan: free
+    numInstances: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.14
+      - key: DJANGO_SETTINGS_MODULE
+        value: starter_app.settings_production
+      - key: DJANGO_DATABASE_NAME
+        fromDatabase:
+          name: starter_app
+          property: database
+      - key: DJANGO_DATABASE_USER
+        fromDatabase:
+          name: starter_app
+          property: user
+      - key: DJANGO_DATABASE_PASSWORD
+        fromDatabase:
+          name: starter_app
+          property: password
+      - key: DJANGO_DATABASE_HOST
+        fromDatabase:
+          name: starter_app
+          property: host
+      - key: DJANGO_DATABASE_PORT
+        fromDatabase:
+          name: starter_app
+          property: port
+      - key: REDIS_HOST
+        fromService:
+          type: redis
+          name: starter_app-redis
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: redis
+          name: starter_app-redis
+          property: port
+      - key: SECRET_KEY
+        sync: false
+      - key: GOOGLE_ANALYTICS_ID
+        sync: false
+      - key: STRIPE_LIVE_PUBLIC_KEY
+        sync: false
+      - key: STRIPE_LIVE_SECRET_KEY
+        sync: false
+      - key: DJSTRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
+
+# Celery task worker (not available on 'free' plan)
+#  - type: worker
+#    name: starter_app_celery
+#    env: python
+#    buildCommand: "./deploy/build_celery.sh"
+#    startCommand: celery -A starter_app worker -l INFO --beat --concurrency 2
+#    region: oregon
+#    plan: starter
+#    numInstances: 1
+#    envVars:
+#      - key: PYTHON_VERSION
+#        value: 3.9.14
+#      - key: DJANGO_SETTINGS_MODULE
+#        value: starter_app.settings_production
+#      - key: DJANGO_DATABASE_NAME
+#        fromDatabase:
+#          name: starter_app
+#          property: database
+#      - key: DJANGO_DATABASE_USER
+#        fromDatabase:
+#          name: starter_app
+#          property: user
+#      - key: DJANGO_DATABASE_PASSWORD
+#        fromDatabase:
+#          name: starter_app
+#          property: password
+#      - key: DJANGO_DATABASE_HOST
+#        fromDatabase:
+#          name: starter_app
+#          property: host
+#      - key: DJANGO_DATABASE_PORT
+#        fromDatabase:
+#          name: starter_app
+#          property: port
+#      - key: REDIS_HOST
+#        fromService:
+#          type: redis
+#          name: starter_app-redis
+#          property: host
+#      - key: REDIS_PORT
+#        fromService:
+#          type: redis
+#          name: starter_app-redis
+#          property: port
+#      - key: SECRET_KEY
+#        sync: false
+#      - key: GOOGLE_ANALYTICS_ID
+#        sync: false
+#      - key: STRIPE_LIVE_PUBLIC_KEY
+#        sync: false
+#      - key: STRIPE_LIVE_SECRET_KEY
+#        sync: false
+#      - key: DJSTRIPE_WEBHOOK_SECRET
+#        sync: false
+#      - key: SENTRY_DSN
+#        sync: false
+
+# Redis instance (for celery and caching)
+  - type: redis
+    name: starter_app-redis
+    ipAllowList: []
+    plan: free
+
+# Postgres database
+databases:
+  - name: starter_app
+    plan: free
+    databaseName: starter_app
+    user: starter_app
+    ipAllowList: [] # only allow internal connections

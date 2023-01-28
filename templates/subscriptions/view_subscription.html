@@ -1,0 +1,25 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% block app %}
+<section class="app-card">
+  <div class="row">
+    <div class="col-md-4 order-md-last">
+        <img class="img-fluid" src="{% static 'images/undraw/undraw_joyride.svg' %}" alt="Yay!">
+    </div>
+    <div class="col-md">
+      <h3>My Subscription</h3>
+      <p class="lead">You're subscribed to a plan. Thanks for the support!</p>
+      {% if subscription %}
+        <h4 class="lead">Subscription Details</h4>
+        {% include 'subscriptions/components/subscription_details.html' %}
+      {% endif %}
+    </div>
+  </div>
+  {% if subscription %}
+  <form method="POST" action="{{ subscription_urls.create_stripe_portal_session }}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-secondary">Manage billing</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

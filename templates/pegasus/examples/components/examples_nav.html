@@ -1,0 +1,61 @@
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+  <div class="sidenav-header">
+    <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenavbb"></i>
+    <a class="navbar-brand m-0" href="{% url 'web:home' %}">
+      <span class="ms-1 font-weight-bold text-white">{{project_meta.NAME}}</span>
+    </a>
+  </div>
+  <hr class="horizontal light mt-0 mb-2">
+  <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
+    <ul class="navbar-nav">
+      <li class="nav-item mt-3">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pegasus Examples</h6>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'pegasus_examples:examples_home' %}" class="nav-link {% if active_tab == 'home' %}active{% endif %}">
+          <span class="pg-icon"><i class="fa fa-home"></i></span><span>Examples Home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'pegasus_examples:payments' %}" class="nav-link {% if active_tab == 'payments' %}active{% endif %}">
+          <span class="pg-icon"><i class="fa fa-credit-card"></i></span><span>Payments</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'pegasus_employees:object_lifecycle_home' %}" class="nav-link {% if active_tab == 'object_lifecycle' %}active{% endif %}">
+          <span class="pg-icon"><i class="fa fa-users"></i></span><span>Employee App</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'pegasus_examples:tasks' %}" class="nav-link {% if active_tab == 'tasks' %}active{% endif %}">
+          <span class="pg-icon"><i class="fa fa-tasks"></i></span><span>Background Tasks</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'pegasus_employees:charts' %}" class="nav-link {% if active_tab == 'charts' %}active{% endif %}">
+          <span class="pg-icon"><i class="fa fa-bar-chart-o"></i></span><span>Charts</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'pegasus_examples:landing_page' %}" class="nav-link {% if active_tab == 'landing_page' %}active{% endif %}">
+          <span class="pg-icon"><i class="fa fa-picture-o"></i></span><span>Landing Page</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'pegasus_examples:pricing_page' %}" class="nav-link {% if active_tab == 'pricing_page' %}active{% endif %}">
+          <span class="pg-icon"><i class="fa fa-external-link"></i></span><span>Pricing Page</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'pegasus_examples:flags' %}" class="nav-link {% if active_tab == 'flags' %}active{% endif %}">
+          <span class="pg-icon"><i class="fa fa-flag"></i></span><span>Feature Flags</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+    <div class="mx-3">
+      <a class="btn bg-gradient-primary mt-4 w-100" href="{% url 'web:home' %}" type="button">Back to Dashboard</a>
+    </div>
+  </div>
+</aside>

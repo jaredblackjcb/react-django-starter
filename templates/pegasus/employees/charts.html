@@ -1,0 +1,55 @@
+{% extends "pegasus/examples/examples_base.html" %}
+{% load static %}
+{% block app %}
+  <section class="app-card">
+    <h1 class="pg-title">Charts Example</h1>
+    <div class="pg-content">
+      <p>
+        An end-to-end implementation of charts for your application, using <a href="https://www.chartjs.org/" target="_blank">Chart.js</a>,
+        and based on data from the <a href="{% url 'pegasus_employees:object_lifecycle_home' %}">Employee App</a>.
+      </p>
+    </div>
+    <div class="pg-columns">
+      <div class="pg-column">
+        <div class="pg-subtitle pg-text-centered">Budget by Department</div>
+        <div id="department-spend-chart-wrapper">
+          <canvas id="department-spend-chart"></canvas>
+        </div>
+      </div>
+      <div class="pg-column">
+        <div class="pg-subtitle pg-text-centered">Average Salary by Department</div>
+        <div id="department-salaries-chart-wrapper">
+          <canvas id="department-salaries-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div id="crud-home"></div>
+{% endblock %}
+{% block page_js %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+  <script src="{% static 'js/pegasus-bundle.js' %}"></script>
+  <script>
+    const objectUrl = '{% url "pegasus_employees:react_object_lifecycle" %}';
+    const Charts = SiteJS.pegasus.Charts;
+    const client = SiteJS.pegasus.getPegasusApiClient("{{ server_url }}");
+
+    const renderChart = function(chartType, bindTo, data, showLegend) {
+      const ctx = document.getElementById(bindTo).getContext('2d');
+      const config = Charts.getChartJsConfig(chartType, data, showLegend);
+      const chart = new Chart(ctx, config);
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      client.employeesAggregateData().then(function (result) {
+        if (result.headcounts.length === 0) {
+          let noData = '<p class="pg-text-centered">No data! First <a href="' + objectUrl + '">create some employees</a>.</p>';
+          document.getElementById('department-spend-chart-wrapper').innerHTML = noData;
+          document.getElementById('department-salaries-chart-wrapper').innerHTML = noData;
+        } else {
+          renderChart('pie', 'department-spend-chart', result['totalCosts'], true);
+          renderChart('bar', 'department-salaries-chart', result['averageSalaries'], false);
+        }
+      });
+    });
+  </script>
+{% endblock %}

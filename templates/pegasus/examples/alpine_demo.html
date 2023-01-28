@@ -1,0 +1,40 @@
+{% extends "pegasus/examples/examples_base.html" %}
+{% load static %}
+{% block page_head %}
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{% endblock page_head %}
+{% block app %}
+  <div class="app-card">
+    <h1 class="pg-title">AlpineJS Demo</h1>
+    <h2 x-data="{ message: 'I ❤️ Alpine' }" x-text="message" class="pg-subtitle"></h2>
+    <div x-data="{ count: 0 }" class="mt-2">
+      <button x-on:click="count++" class="pg-button-secondary">Increment</button>
+      <span x-text="count"></span>
+    </div>
+    <div x-data="{ open: false }" class="mt-2">
+      <button @click="open = ! open" class="pg-button-secondary">Toggle</button>
+      <div x-show="open" @click.outside="open = false" class="mt-1">Contents...</div>
+    </div>
+    <div class="mt-2"
+      x-data="{
+          search: '',
+
+          items: ['foo', 'bar', 'baz'],
+
+          filteredItems() {
+              return this.items.filter(
+                  i => i.startsWith(this.search)
+              )
+          }
+      }"
+  >
+      <input x-model="search" placeholder="Search..." class="pg-control">
+
+      <ul class="mt-1">
+          <template x-for="item in filteredItems()" :key="item">
+              <li x-text="item"></li>
+          </template>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

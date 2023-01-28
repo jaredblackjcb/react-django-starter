@@ -1,0 +1,17 @@
+Django
+django-allauth
+django-allauth-2fa
+django-waffle
+psycopg2-binary
+django-environ
+djangorestframework
+drf-spectacular
+stripe
+dj-stripe
+django-anymail[mailgun]  # email services
+django-hijack
+celery-progress
+celery
+celery[redis]
+sentry-sdk
+whitenoise[brotli]

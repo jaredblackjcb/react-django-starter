@@ -1,0 +1,27 @@
+default_context:
+  _pegasus_version: '2022.12'
+  author_name: Jared Black
+  ci: github_actions
+  css_framework: bootstrap
+  css_theme: bootstrap-material
+  database: postgres
+  deploy_platform: render
+  description: A starter project with a server-rendered SPA architecture.
+  domain_name: localhost:8000
+  email: jaredblackjcb@gmail.com
+  enable_google_login: y
+  enable_twitter_login: n
+  front_end_framework: react
+  project_name: Starter App
+  project_slug: starter_app
+  stripe_payment_mode: checkout
+  subscription_billing_model: default
+  use_2fa: y
+  use_api_keys: n
+  use_docker: n
+  use_impersonation: y
+  use_sentry: y
+  use_subscriptions: y
+  use_teams: n
+  use_translations: y
+  use_wagtail: n

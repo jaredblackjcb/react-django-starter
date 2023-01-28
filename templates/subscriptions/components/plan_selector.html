@@ -1,0 +1,36 @@
+{% if active_plan_intervals|length > 1 %}
+  <div class="text-center">
+    <div class="btn-group">
+      {% for interval in active_plan_intervals %}
+        <button class="btn btn-outline-primary" id="plan-selector-{{interval.interval}}">{{ interval.name }}</button>
+      {% endfor %}
+    </div>
+    <div class="my-2" id="plan-help" ></div>
+  </div>
+{% endif %}
+<div class="row my-4" id="plan-selector" >
+  {% for product in active_products %}
+    <div class="col-md">
+      <div class="plan{% if product.metadata.is_default %} is-selected{% endif %}"
+           data-product-id="{{ product.stripe_id }}" data-plan-id="{{ product.default_price.id }}" >
+        <div class="plan-summary">
+          <div class="plan-details">
+            <h3>{{ product.metadata.name }}</h3>
+          </div>
+        </div>
+        <p class="lead">{{ product.metadata.description }}</p>
+        <div class="my-2">
+          <p><span class="price"></span><span class="interval"></span></p>
+        </div>
+        <ul class="upgrade-features">
+           {% for feature in product.metadata.features %}
+           <li>
+             <span class="pg-icon"><i class="fa fa-check"></i></span>
+             <span class="upgrade-feature">{{ feature }}</span>
+           </li>
+           {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endfor %}
+</div>

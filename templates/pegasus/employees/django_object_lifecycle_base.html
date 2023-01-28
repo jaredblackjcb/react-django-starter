@@ -1,0 +1,31 @@
+{% extends "pegasus/examples/examples_base.html" %}
+{% load static %}
+{% block app %}
+  <nav aria-label="breadcrumbs">
+    <ol class="pg-breadcrumbs">
+      <li class=""><a href="{% url 'pegasus_employees:object_lifecycle_home' %}">Employee Lifecycle App</a></li>
+      <li class="pg-breadcrumb-active" aria-current="page">Django Forms</li>
+    </ol>
+  </nav>
+  <section class="app-card">
+    <div class="pg-columns">
+      <div class="pg-column-one-quarter pg-text-centered">
+        <img class="img-fluid" alt="Django" src="{% static 'images/pegasus/django-icon.png' %}" style="max-height: 160px;"/>
+      </div>
+      <div class="pg-column">
+        <h1 class="pg-title">Django Object Lifecycle Demo</h1>
+        <h2 class="pg-subtitle">
+          An interactive data model and UI example.
+        </h2>
+        <div class="pg-content">
+          <p>
+            This is an interactive data model and UI example using Django templates and forms.
+            It demonstrates performing simple create, read, update and delete (CRUD) operations on an example
+            "Employee" data model.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% block django_app %}{% endblock %}
+{% endblock %}

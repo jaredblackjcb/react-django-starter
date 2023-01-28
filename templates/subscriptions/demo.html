@@ -1,0 +1,63 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load i18n %}
+{% block app %}
+<section class="app-card">
+  <h1 class="pg-title">Subscription Demo</h1>
+  <h1 class="pg-subtitle">Basic examples to get you going with feature-gating based on subscriptions.</h1>
+  <p>Tip: the source of this page can be found at <code>templates/subscriptions/demo.html</code></p>
+</section>
+<section class="app-card">
+  <h1 class="pg-subtitle">Changing Content Based on a Subscription</h1>
+  <p>The text and color below will change based on whether you have an active subscription.</p>
+  {% if subscription %}
+    <div class="my-2 pg-text-centered pg-text-success">
+      <p>You're subscribed to {{ subscription.display_name }}! Hooray!</p>
+    </div>
+  {% else %}
+    <div class="my-2 pg-text-centered pg-text-info">
+      <p>It doesn't look like you're subscribed. <a href="{{ subscription_urls.subscription_details }}"><strong>Upgrade Here!</strong></a></p>
+    </div>
+  {% endif %}
+</section>
+<section class="app-card">
+  <h1 class="pg-subtitle">Viewing Subscription Details</h1>
+  <p class="pg-content">
+    If you're subscribed to a plan, go to
+    <a href="{{ subscription_urls.subscription_details }}">the subscription details page</a>
+    to see an example of showing information about the subscription.
+  </p>
+</section>
+<section class="app-card">
+  <h1 class="pg-subtitle">Restricting Access to a Page</h1>
+  <div class="pg-content">
+    <p>
+      <a href="{{ subscription_urls.subscription_gated_page }}">This page</a> is only available if you are subscribed to a plan.
+    </p>
+    <p>
+      The code for this page can be found in the <code>subscription_gated_page</code> view in
+      <code>apps/subscriptions/views.py</code>
+    </p>
+  </div>
+</section>
+<section class="app-card">
+  <h1 class="pg-subtitle">{% translate "Metered Billing" %}</h1>
+  <p class="pg-content">
+    {% if subscription.is_metered %}
+      {% with subscription_urls.metered_billing_demo as metered_billing_demo_url %}
+      {% blocktranslate %}
+        You're subscribed to a plan that supports metered usage.
+        You can update the amount this subscription has used from the <a href="{{ metered_billing_demo_url }}">metered billing demo page</a>.
+      {% endblocktranslate %}
+      {% endwith %}
+    {% else %}
+      {% blocktranslate %}
+        You aren't currently subscribed to a plan that supports metered usage.
+        To use the metered billing integration, first create and subscribe to a metered plan.
+        More details are available in
+        <a href="https://stripe.com/docs/products-prices/pricing-models#usage-based-pricing" target="_blank">the Stripe documentation</a>.
+      {% endblocktranslate %}
+    {% endif %}
+  </p>
+</section>
+{% endblock %}

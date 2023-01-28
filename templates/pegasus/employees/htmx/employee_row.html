@@ -1,0 +1,15 @@
+<div class="tr" hx-target="this" hx-swap="outerHTML">
+  <div class="td">{{ employee.name }}</div>
+  <div class="td">{{ employee.get_department_display }}</div>
+  <div class="td pg-text-right">${{ employee.salary }}</div>
+  <div class="td pg-inline-buttons pg-justify-content-end" style="display: flex;">
+    <div class="pg-button-secondary" hx-get="{% url 'pegasus_employees:htmx_edit_employee' employee.id %}">
+      <span class="pg-icon"><i class="fa fa-edit"></i></span>
+      <span class="pg-hidden-mobile-inline">Edit</span>
+    </div>
+    <button class="pg-button-danger pg-ml" type="submit" hx-delete="{% url 'pegasus_employees:htmx_delete_employee' employee.id %}">
+      <span class="pg-icon"><i class="fa fa-times"></i></span>
+      <span class="pg-hidden-mobile-inline">Delete</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,195 @@
+{% extends "pegasus/examples/examples_base.html" %}
+{% load static %}
+{% block app %}
+<section class="app-card">
+  <h1 class="pg-title">Examples Gallery</h1>
+  <h2 class="pg-subtitle">
+    End-to-end, fully functional examples for your project's needs.
+  </h2>
+</section>
+  <div class="pg-columns">
+    <div class="pg-column">
+      <div class="pg-card h-100">
+        <div class="pg-card-image">
+          <figure class="image pg-ratio-3x2">
+            <img class="img-fluid" src="{% static 'images/undraw/undraw_credit_card.svg' %}" alt="Payments">
+          </figure>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-content">
+            <h3>Payments</h3>
+            <p>
+              Easily collect once-off credit card payments using Stripe
+              with this complete example.
+            </p>
+          </div>
+          <div class="buttons">
+            <a href="{% url 'pegasus_examples:payments' %}" class="pg-button-secondary">
+              <span>View Payments</span>
+              <span class="pg-icon">
+                <i class="fa fa-angle-double-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-column">
+      <div class="pg-card h-100">
+        <div class="pg-card-image">
+          <figure class="image pg-ratio-3x2">
+            <img class="img-fluid" src="{% static 'images/pegasus/object-demo-icons.png' %}" alt="Object Demo">
+          </figure>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-content">
+            <h3>Employee Lifecycle</h3>
+            <p>
+              A front-end for working with your database implemented in vanilla Django, React, and HTMX.
+            </p>
+          </div>
+          <div class="buttons">
+            <a href="{% url 'pegasus_employees:object_lifecycle_home' %}" class="pg-button-secondary">
+              <span>View Employee App</span>
+              <span class="pg-icon">
+                <i class="fa fa-angle-double-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-column">
+      <div class="pg-card h-100">
+        <div class="pg-card-image">
+          <figure class="image pg-ratio-3x2">
+            <img class="img-fluid" src="{% static 'images/pegasus/celery-icon.png' %}" alt="Background Tasks">
+          </figure>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-content">
+            <h3>Background Tasks</h3>
+            <p>
+              Support background, long-running, or scheduled tasks easily with a working Celery
+              + front-end integration.
+            </p>
+          </div>
+          <div class="buttons">
+            <a href="{% url 'pegasus_examples:tasks' %}" class="pg-button-secondary">
+              <span>View Tasks</span>
+              <span class="pg-icon">
+                <i class="fa fa-angle-double-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-columns mt-2">
+    <div class="pg-column">
+      <div class="pg-card h-100">
+        <div class="pg-card-image">
+          <figure class="image pg-ratio-3x2">
+            <img class="img-fluid" src="{% static 'images/undraw/undraw_analytics.svg' %}" alt="Charts">
+          </figure>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-content">
+            <h3>Charts</h3>
+            <p>
+              Fully-integrated charts based on real data from your application.
+            </p>
+          </div>
+          <div class="buttons">
+            <a href="{% url 'pegasus_employees:charts' %}" class="pg-button-secondary">
+              <span>View Charts</span>
+              <span class="pg-icon">
+                <i class="fa fa-angle-double-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-column">
+      <div class="pg-card h-100">
+        <div class="pg-card-image">
+          <figure class="image pg-ratio-3x2">
+            <img class="img-fluid" src="{% static 'images/pegasus/flags.png' %}" alt="Feature Flags">
+          </figure>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-content">
+            <h3>Feature Flags</h3>
+            <p>
+              Use Feature Flags to enable or disable portions of your site dynamically.
+            </p>
+          </div>
+          <div class="buttons">
+            <a href="{% url 'pegasus_examples:flags' %}" class="pg-button-secondary">
+              <span>View Feature Flag example</span>
+              <span class="icon">
+                <i class="fa fa-angle-double-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-column">
+      <div class="pg-card h-100">
+        <div class="pg-card-image">
+          <figure class="image pg-ratio-3x2">
+            <img class="img-fluid" src="{% static 'images/pegasus/landing-page-screenshot-small.png' %}" alt="Landing Page">
+          </figure>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-content">
+            <h3>Landing Page</h3>
+            <p>
+              A beautiful, responsive, and easy-to-customize landing page to help
+              you tell your application's story.
+            </p>
+          </div>
+          <div class="buttons">
+            <a href="{% url 'pegasus_examples:landing_page' %}" class="pg-button-secondary">
+              <span>View Landing Page</span>
+              <span class="pg-icon">
+                <i class="fa fa-angle-double-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-columns mt-2">
+    <div class="pg-column-one-third">
+      <div class="pg-card h-100">
+        <div class="pg-card-image">
+          <figure class="image pg-ratio-3x2">
+            <img class="img-fluid" src="{% static 'images/pegasus/pricing-page-screenshot-small.png' %}" alt="Pricing Page">
+          </figure>
+        </div>
+        <div class="pg-card-body">
+          <div class="pg-content">
+            <h3>Pricing Page</h3>
+            <p>
+              Communicate your application's value with a simple, flexible
+              pricing page.
+            </p>
+          </div>
+          <div class="buttons">
+            <a href="{% url 'pegasus_examples:pricing_page' %}" class="pg-button-secondary">
+              <span>View Pricing Page</span>
+              <span class="pg-icon">
+                <i class="fa fa-angle-double-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

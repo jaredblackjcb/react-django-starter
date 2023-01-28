@@ -1,0 +1,74 @@
+{% extends "pegasus/examples/examples_base.html" %}
+{% load static %}
+{% load waffle_tags %}
+{% block page_head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/django.min.js"></script>
+{% endblock %}
+{% block app %}
+<section class="app-card">
+  <h2 class="pg-subtitle">Feature Flags Example</h2>
+  <div class="pg-content">
+      <p>Pegasus uses <a href="https://waffle.readthedocs.io/en/stable/" target="_blank">Waffle</a> to provide feature flag support.</p>
+      <p>This example shows the usage of Waffle in Python, JavaScript and Django templates.</p>
+      <p>A single flag has been created called <strong>'example-flag'</strong>. It is not enabled for any users but
+      it has been created with 'test mode' active which allows it to be enabled by specifying
+          a URL parameter: <em>'dwft_example-flag'</em>
+      </p>
+      <p>
+          <a href="?dwft_example-flag=1" class="pg-button-secondary">Enable</a>
+          <a href="?dwft_example-flag=0" class="pg-button-secondary">Disable</a>
+      </p>
+      <p>
+          Flag check using Django template tag:
+          {% flag "example-flag" %}
+          <span class="pg-badge-success">enabled</span>
+          {% else %}
+          <span class="pg-badge-default">disabled</span>
+          {% endflag %}
+          <pre><code class="language-django">{% verbatim %}{% flag "example-flag" %}
+<span class="pg-badge-success">enabled</span>
+{% else %}
+<span class="pg-badge-default">disabled</span>
+{% endflag %}{% endverbatim %}</code></pre>
+      </p>
+      <p>
+          Flag check in Django view:
+          {% if flag_active %}
+          <span class="pg-badge-success">enabled</span>
+          {% else %}
+          <span class="pg-badge-default">disabled</span>
+          {% endif %}
+      <pre><code class="language-python">waffle.flag_is_active(request, 'example-flag')</code></pre>
+      </p>
+      <p>
+          Flag check in JavaScript: <span id="example-flag"></span>
+          <pre><code class="language-javascript">const example_flag_active = waffle.flag_is_active('example-flag')
+console.log(`Example flag is active: ${example_flag_active}`);
+if (example_flag_active) {
+  el.innerText = 'enabled';
+  el.classList.add('is-success');
+} else {
+  el.innerText = 'disabled';
+  el.classList.add('is-default');
+}</code></pre>
+  </div>
+</section>
+{% endblock %}
+{% block page_js %}
+<script>
+  {% wafflejs %}
+  let el = document.getElementById("example-flag");
+  const example_flag_active = waffle.flag_is_active('example-flag')
+  console.log(`Example flag is active: ${example_flag_active}`);
+  if (example_flag_active) {
+    el.innerText = 'enabled';
+    el.classList.add('pg-badge-success');
+  } else {
+    el.innerText = 'disabled';
+    el.classList.add('pg-badge-default');
+  }
+</script>
+<script>hljs.highlightAll();</script>
+{% endblock %}

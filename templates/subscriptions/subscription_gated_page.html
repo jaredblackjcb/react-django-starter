@@ -1,0 +1,18 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% block app %}
+  <section class="app-card">
+    <div class="pg-columns pg-columns-reversed">
+      <div class="pg-column">
+        <img class="img-fluid" src="{% static 'images/undraw/undraw_joyride.svg' %}" alt="Yay!">
+      </div>
+      <div class="pg-column">
+        <h1 class="pg-title">Yay! You have access!</h1>
+        <h2 class="pg-subtitle">
+          If you're seeing this page then you're subscribed to a plan.
+          Thanks for being a customer!
+        </h2>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "pegasus/examples/examples_base.html" %}
+{% load static %}
+{% block page_head %}
+  <script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous" defer></script>
+  <style>
+    /* make an editable grid that looks like a table: https://stackoverflow.com/a/15600151/8207 */
+    div.table
+    {
+        display:table;
+    }
+    form.tr, div.tr
+    {
+        display:table-row;
+    }
+    div.td, span.td, div.th, span.th
+    {
+        display:table-cell;
+        width: inherit !important;
+    }
+    /* bootstrap styling workaround */
+    .table > :not(:first-child) {
+      border-top: none;
+    }
+  </style>
+{% endblock page_head %}
+{% block app %}
+  <nav aria-label="breadcrumbs">
+    <ol class="pg-breadcrumbs">
+      <li class=""><a href="{% url 'pegasus_employees:object_lifecycle_home' %}">Employee Lifecycle App</a></li>
+      <li class="pg-breadcrumb-active" aria-current="page">HTMX</li>
+    </ol>
+  </nav>
+  <section class="app-card">
+    <div class="pg-columns">
+      <div class="pg-column-one-quarter pg-text-centered">
+        <img class="img-fluid" alt="HTMX" src="{% static 'images/pegasus/htmx-icon.png' %}" style="max-height: 160px;"/>
+      </div>
+      <div class="pg-column">
+        <h1 class="pg-title">HTMX Object Lifecycle Demo</h1>
+        <h2 class="pg-subtitle">
+          An interactive data model and UI example.
+        </h2>
+        <div class="pg-content">
+          <p>
+            This is an interactive data model and UI example built with <a href="https://htmx.org/" target="_blank">htmx</a>.
+            This demo is built with native Django templates and forms and uses no native JavaScript!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="app-card">
+    <div class="table pg-table">
+      <div class="tr">
+        <div class="th pg-text-left">Name</div>
+        <div class="th pg-text-left">Department</div>
+        <div class="th pg-text-right">Salary</div>
+        <div class="th"></div>
+      </div>
+      {% for employee in employees %}
+        {% include 'pegasus/employees/htmx/employee_row.html' %}
+      {% endfor %}
+      {% include 'pegasus/employees/htmx/new_employee_button.html' %}
+    </div>
+  </div>
+{% endblock %}
+{% block page_js %}
+<script>
+  // hook up csrf tokens to all htmx requests
+  document.body.addEventListener('htmx:configRequest', (event) => {
+    event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+  })
+</script>
+{% endblock %}

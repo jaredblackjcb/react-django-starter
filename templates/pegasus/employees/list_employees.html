@@ -1,0 +1,65 @@
+{% extends "pegasus/employees/django_object_lifecycle_base.html" %}
+{% load static %}
+{% load i18n %}
+{% block django_app %}
+  <div class="app-card">
+    {% if employees %}
+      <div class="table-responsive">
+        <table class="table pg-table">
+          <thead>
+          <tr>
+            <th class="pg-text-left">{% translate "Name" %}</th>
+            <th class="pg-text-left">{% translate "Department" %}</th>
+            <th class="pg-text-right">{% translate "Salary" %}</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for employee in employees %}
+            <tr>
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.get_department_display }}</td>
+              <td class="pg-text-right">${{ employee.salary }}</td>
+              <td class="pg-inline-buttons pg-justify-content-end">
+                <a href="{% url 'pegasus_employees:django_edit_employee' employee.id %}">
+                  <div class="pg-button-secondary">
+                    <span class="pg-icon"><i class="fa fa-edit"></i></span>
+                    <span class="pg-hidden-mobile-inline">{% translate "Edit" %}</span></div>
+                </a>
+                <form method="post" action="{% url 'pegasus_employees:django_delete_employee' employee.id %}">
+                  {% csrf_token %}
+                  <button class="pg-button-danger pg-ml" type="submit" value="">
+                    <span class="pg-icon"><i class="fa fa-times"></i></span>
+                    <span class="pg-hidden-mobile-inline">{% translate "Delete" %}</span>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <a class="pg-button-primary" href="{% url 'pegasus_employees:django_new_employee' %}">
+        <span class="pg-icon"><i class="fa fa-plus"></i></span>
+        <span>{% translate "Add Employee" %}</span>
+      </a>
+    {% else %}
+      <div class="pg-columns">
+        <div class="pg-column-one-third">
+          <img class="img-fluid" alt="Nothing Here" src="{% static 'images/undraw/undraw_empty.svg' %}">
+        </div>
+        <div class="pg-column">
+          <h1 class="pg-title">{% translate "No Employees Yet!" %}</h1>
+          <h2 class="pg-subtitle">{% translate "Create your first employee below to get started." %}</h2>
+          <div class="my-3">
+            <a href="{% url 'pegasus_employees:django_new_employee' %}">
+              <button class="pg-button-primary">
+                <span class="pg-icon"><i class="fa fa-plus"></i></span><span>{% translate "Create Employee" %}</span>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

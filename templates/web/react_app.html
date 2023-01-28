@@ -1,0 +1,6 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% block app %}
+<div id="react-app-container"></div>
+<script src="{% static 'js/index-bundle.js' %}"></script>
+{% endblock %}

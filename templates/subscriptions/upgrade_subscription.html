@@ -1,0 +1,123 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load i18n %}
+{% block app %}
+<section class="app-card">
+  {% include 'subscriptions/components/subscription_hero.html' %}
+  <hr>
+  {% include 'subscriptions/components/plan_selector.html' %}
+  <form action="{{ subscription_urls.create_checkout_session }}" method="POST" id="checkout-form">
+    {% csrf_token %}
+    <input type="hidden" name="priceId" value="" id="price-input"/>
+    <button type="submit" class="pg-button-primary" id="subscribe-button">Upgrade</button>
+  </form>
+</section>
+{% endblock %}
+{% block page_js %}
+{{ active_products_json|json_script:'active-products' }}
+<script>
+  const initializePlanSelectorEvents = function(onPlanChanged) {
+    const activeProducts = JSON.parse(document.getElementById('active-products').textContent);
+    const defaultAnnual = '{{ default_to_annual }}' === 'True';
+
+    const getSelectedPlanElement = function () {
+      return document.querySelector('.plan.is-selected');
+    };
+
+    // hook up "monthly"/"annual" selection events
+    const monthlySelector = document.getElementById('plan-selector-month');
+    const annualSelector = document.getElementById('plan-selector-year');
+    const helpLabel = document.getElementById('plan-help');
+    const planElements = document.getElementsByClassName('plan');
+    const annualHelpText = "You're getting two months free by choosing an Annual plan!";
+    const monthlyHelpText = "Upgrade to annual pricing to get two free months.";
+
+    const updatePlans = function (isAnnual) {
+      for (let i = 0; i < planElements.length; i++) {
+        let planElt = planElements[i];
+        let productId = planElt.dataset.productId;
+        let planMetadata = (
+          isAnnual ? activeProducts[productId]['annual_price'] : activeProducts[productId]['monthly_price']
+        );
+        // set data attribute
+        planElt.dataset.planId = planMetadata.stripe_id;
+        planElt.dataset.interval = isAnnual ? 'year' : 'month';
+        planElt.dataset.paymentAmount = planMetadata.payment_amount;
+        let priceElt = planElt.querySelector('.price');
+        priceElt.textContent = planMetadata.payment_amount;
+        let intervalElt = planElt.querySelector('.interval');
+        intervalElt.textContent = '/ ' + planMetadata.interval;
+      }
+    };
+
+    const selectPeriod = function (isAnnual) {
+      if (isAnnual) {
+        if (annualSelector) {
+          annualSelector.classList.add('is-selected', 'is-primary', 'btn-active');
+          monthlySelector.classList.remove('is-selected', 'is-primary', 'btn-active');
+          helpLabel.innerText = annualHelpText;
+          helpLabel.classList.add('pg-text-primary');
+          helpLabel.classList.remove('pg-text-danger');
+        }
+        updatePlans(isAnnual);
+      } else {
+        if (monthlySelector) {
+          annualSelector.classList.remove('is-selected', 'is-primary', 'btn-active');
+          monthlySelector.classList.add('is-selected', 'is-primary', 'btn-active');
+          helpLabel.innerText = monthlyHelpText;
+          helpLabel.classList.add('pg-text-danger');
+          helpLabel.classList.remove('pg-text-primary');
+        }
+        updatePlans(isAnnual);
+      }
+      onPlanChanged(getSelectedPlanElement());
+    };
+    selectPeriod(defaultAnnual);
+    if (annualSelector) {
+      annualSelector.addEventListener('click', function (event) {
+        selectPeriod(true);
+      });
+    }
+    if (monthlySelector) {
+      monthlySelector.addEventListener('click', function (event) {
+        selectPeriod(false);
+      });
+    }
+
+    // hook up plan selection events
+    const selectPlan = function(plan) {
+      // if already selected there's nothing to do
+      if (!plan.classList.contains('is-selected')) {
+        plan.classList.add('is-selected');
+        for (let i = 0; i < planElements.length; i++) {
+          if (planElements[i] !== plan) {
+            planElements[i].classList.remove('is-selected');
+          }
+        }
+      }
+      onPlanChanged(getSelectedPlanElement());
+    };
+    for (let i = 0; i < planElements.length; i++) {
+      planElements[i].addEventListener('click', function(event) {
+        let plan = event.target.closest('.plan');
+        selectPlan(plan);
+      });
+    }
+    // if no plan was the default, then select the first one
+    const selectedElement = getSelectedPlanElement();
+    if (!selectedElement) {
+      selectPlan(planElements[0]);
+    }
+  }
+</script>
+<script>
+  // wire up the plan selector elements to the checkout form
+  const updatePaymentDetails = function (selectedPlan) {
+    if (selectedPlan) {
+      const priceInput = document.getElementById('price-input');
+      priceInput.value = selectedPlan.dataset.planId;
+    }
+  };
+  initializePlanSelectorEvents(updatePaymentDetails);
+</script>
+{% endblock page_js %}

@@ -1,0 +1,7 @@
+{% load i18n %}
+<div class="mt-2" hx-target="this" hx-swap="outerHTML">
+  <a class="pg-button-primary" hx-get="{% url 'pegasus_employees:htmx_new_employee' %}">
+    <span class="pg-icon"><i class="fa fa-plus"></i></span>
+    <span>{% translate "Add Employee" %}</span>
+  </a>
+</div>

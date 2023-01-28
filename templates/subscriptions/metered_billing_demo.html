@@ -1,0 +1,23 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load i18n %}
+{% load form_tags %}
+{% block app %}
+  <section class="app-card">
+    <h1 class="pg-title">{% translate "Metered Billing Demo" %}</h1>
+    <h2 class="pg-subtitle">{{ subscription }}</h2>
+    <p>
+      {% blocktranslate %}
+        Use the form below to add usage data for your metered subscription.
+        This data will be saved and synchronized with Stripe for the next billing period.
+      {% endblocktranslate %}
+    </p>
+    <form class="mt-2" method="post">
+      {% csrf_token %}
+      {% render_form_fields form %}
+      <div class="mt-2">
+        <input type="submit" class="pg-button-primary" value="{% translate 'Add Usage' %}">
+      </div>
+    </form>
+  </section>
+{% endblock %}

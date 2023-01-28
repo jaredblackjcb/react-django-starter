@@ -1,0 +1,34 @@
+{% load form_tags %}
+<form class="tr" hx-post="{% if employee %}{% url 'pegasus_employees:htmx_edit_employee' employee.id %}{% else %}{% url 'pegasus_employees:htmx_new_employee' %}{% endif %}"
+      hx-target="this" hx-swap="outerHTML">
+  {% csrf_token %}
+  <div class="td pg-input-group">
+    {{ form.name }}
+    {{ form.name.errors }}
+  </div>
+  <div class="td">
+    <div class="pg-select">
+      {{ form.department }}
+    </div>
+  </div>
+  <div class="td pg-input-group">
+    {{ form.salary }}
+    {{ form.salary.errors }}
+  </div>
+  <div class="td" >
+    <div class="pg-inline-buttons pg-justify-content-end pg-align-items-center" style="display: flex;">
+    <button class="pg-button-primary" type="submit">
+      <span class="pg-icon"><i class="fa fa-save"></i></span>
+      <span>Save</span>
+    </button>
+    {% if employee %}
+      <button class="pg-button-secondary pg-ml" hx-get="{% url 'pegasus_employees:htmx_get_employee' employee.id %}">Cancel</button>
+    {% else %}
+      <button class="pg-button-secondary pg-ml" hx-get="{% url 'pegasus_employees:htmx_empty' %}">Cancel</button>
+    {% endif %}
+    </div>
+  </div>
+</form>
+{% if not employee and not form.errors %}
+  {% include 'pegasus/employees/htmx/new_employee_button.html' %}
+{% endif %}

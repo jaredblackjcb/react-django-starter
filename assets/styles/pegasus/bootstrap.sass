@@ -1,0 +1,160 @@
+
+.pg-hidden-mobile-inline
+  @extend .d-none, .d-md-inline-block
+
+.pg-text-centered
+  @extend .text-center
+
+.pg-text-left
+  @extend .text-start
+
+.pg-text-right
+  @extend .text-end
+
+.pg-title
+  @extend h3
+
+.pg-subtitle
+  @extend .lead
+
+// buttons
+
+.pg-button-primary
+  @extend .btn, .btn-primary
+
+.pg-button-secondary
+  @extend .btn, .btn-outline-primary
+
+.pg-button-danger
+  @extend .btn, .btn-outline-danger
+
+.pg-button-light
+  @extend .btn, .btn-light
+
+.pg-inline-buttons
+  @extend .d-flex
+
+.pg-justify-content-end
+  @extend .justify-content-end
+
+.pg-align-items-center
+  @extend .align-items-center
+
+.pg-is-loading
+  @extend .disabled
+
+.pg-icon
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  height: 1.5rem
+  width: 1.5rem
+
+// text modifiers
+
+.pg-text-primary
+  @extend .text-primary
+
+.pg-text-success
+  @extend .text-success
+
+.pg-text-info
+  @extend .text-info
+
+.pg-text-danger
+  @extend .text-danger
+
+.pg-text-muted
+  @extend .text-muted
+
+//  forms
+
+.pg-control
+  @extend .form-control
+
+.pg-select
+  // for compatibility with bulma we have to introduce an extra parent element
+  // to the select class, hence the class being applied to the inner select element
+  select
+    @extend .form-select
+
+.pg-help
+  @extend .form-text
+
+.pg-input-group
+  @extend .mb-3, .input-group, .input-group-static
+
+// columns
+
+.pg-columns
+  @extend .row, .gy-4
+
+.pg-columns-reversed
+  @extend .flex-row-reverse
+
+.pg-column
+  @extend .col-md
+
+.pg-column-one-third
+  @extend .col-md-4
+
+.pg-column-one-quarter
+  @extend .col-md-3
+
+
+// tables
+
+.pg-table
+  @extend .table-striped, .align-middle
+
+  .td, .th
+    padding: $table-cell-padding-y $table-cell-padding-x
+    border-bottom: $table-border-width solid $table-border-color
+
+  .th
+    font-weight: bold
+
+.table-responsive
+  td
+    white-space: nowrap
+
+// breadcrumbs
+
+.pg-breadcrumbs
+  @extend .breadcrumb
+
+  li
+    @extend .breadcrumb-item
+
+  .pg-breadcrumb-active
+    @extend .active
+
+// cards
+
+.pg-card
+  @extend .card, .shadow-sm
+
+.pg-card-image
+  @extend .card-img-top
+
+.pg-card-body
+  @extend .card-body
+
+// ratios
+
+.pg-ratio-3x2
+  @extend .ratio
+  --bs-aspect-ratio: 66.6666%
+
+// spacing
+
+.pg-ml
+  @extend .ms-1
+
+// badges
+
+.pg-badge-default
+  @extend .badge, .rounded-pill, .text-bg-secondary
+
+.pg-badge-success
+  @extend .badge, .rounded-pill, .text-bg-success

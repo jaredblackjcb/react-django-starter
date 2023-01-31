@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, 'web/react_app.html', {'react_bundle': 'index-bundle.js'})
+        return render(request, 'frontend/react_app.html')
     else:
         return render(request, 'web/landing_page.html')
 

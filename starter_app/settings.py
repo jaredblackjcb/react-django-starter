@@ -362,10 +362,6 @@ WEBPACK_LOADER = {
     }
 }
 
-print(BASE_DIR)
-print(os.path.join(BASE_DIR,'static','js'))
-print(os.path.join(BASE_DIR,'static','js','webpack-stats.json'))
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

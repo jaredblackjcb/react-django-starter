@@ -17,6 +17,5 @@ _dist/
 .env.production
 .DS_Store
 
-# uncomment these lines after setting up the front-end build pipeline in dev and production
-# static/css/
-# static/js/
+static/css/
+static/js/

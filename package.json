@@ -1,5 +1,5 @@
 {
-  "name": "pegasus",
+  "name": "react_django_starter",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
@@ -8,9 +8,11 @@
     "build:react": "NODE_ENV=production webpack --config assets/frontend/webpack.config.js --mode production",
     "build:templates": "NODE_ENV=production webpack --config webpack.config.js --mode production",
     "build": "npm run build:react && npm run build:templates",
-    "dev:react": "webpack --config assets/frontend/webpack.config.js --mode development --watch",
-    "dev:templates": "webpack --config webpack.config.js --mode development --watch",
-    "dev-watch": "npm run dev:react && npm run dev:templates",
+    "dev:react": "webpack --config assets/frontend/webpack.config.js --mode development",
+    "dev:templates": "webpack --config webpack.config.js --mode development",
+    "dev": "npm run dev:react && npm run dev:templates",
+    "dev-watch:react": "webpack --config assets/frontend/webpack.config.js --mode development --watch",
+    "dev-watch:templates": "webpack --config webpack.config.js --mode development --watch",
     "type-check": "tsc --noEmit",
     "type-check-watch": "npm run type-check -- --watch"
   },

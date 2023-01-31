@@ -71,11 +71,6 @@ THIRD_PARTY_APPS = [
     'webpack_loader',
 ]
 
-PEGASUS_APPS = [
-    'pegasus.apps.examples.apps.PegasusExamplesConfig',
-    'pegasus.apps.employees.apps.PegasusEmployeesConfig',
-]
-
 # Put your project-specific apps here
 PROJECT_APPS = [
     'apps.subscriptions.apps.SubscriptionConfig',
@@ -83,7 +78,7 @@ PROJECT_APPS = [
     'apps.web',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PEGASUS_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -309,15 +304,13 @@ CELERY_BROKER_URL = CELERY_RESULT_BACKEND = REDIS_URL
 
 
 
-# Pegasus config
-
 # replace any values below with specifics for your project
 PROJECT_METADATA = {
     'NAME': gettext_lazy('Starter App'),
     'URL': 'http://localhost:8000',
     'DESCRIPTION': gettext_lazy("A starter project with a server-rendered SPA architecture."),
     'IMAGE': 'https://upload.wikimedia.org/wikipedia/commons/2/20/PEO-pegasus_black.svg',
-    'KEYWORDS': 'SaaS, django',
+    'KEYWORDS': 'SaaS, django', 'react'
     'CONTACT_EMAIL': 'jaredblackjcb@gmail.com',
 }
 

@@ -41,8 +41,6 @@ urlpatterns = [
     path('users/', include('apps.users.urls')),
     path('subscriptions/', include('apps.subscriptions.urls')),
     path('', include('apps.web.urls')),
-    path('pegasus/', include('pegasus.apps.examples.urls')),
-    path('pegasus/employees/', include('pegasus.apps.employees.urls')),
     path('support/', include('apps.support.urls')),
     path('celery-progress/', include('celery_progress.urls')),
     # API docs

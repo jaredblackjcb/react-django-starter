@@ -7,8 +7,6 @@ module.exports = {
     "site-base": "./assets/site-base.js", // base styles shared between frameworks
     "site-bootstrap": "./assets/site-bootstrap.js", // required for bootstrap styles
     app: "./assets/javascript/app.js",
-    pegasus: "./assets/javascript/pegasus/pegasus.js",
-    "react-object-lifecycle": "./assets/javascript/pegasus/examples/react/react-object-lifecycle.js",
   },
   output: {
     path: path.resolve(__dirname, "./static"),

@@ -72,13 +72,6 @@ export default function SideNav() {
           </li>
         </ul>
       </div>
-      <div className="sidenav-footer position-absolute w-100 bottom-0 ">
-        <div className="mx-3">
-          <a className="btn bg-gradient-primary mt-4 w-100" href="/" type="button">
-            Example
-          </a>
-        </div>
-      </div>
     </aside>
   );
 }

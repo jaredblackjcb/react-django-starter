@@ -1,18 +1,22 @@
-import { Container } from "react-bootstrap";
-import Header from "./components/Header";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
+import SideNav from "./components/SideNav";
+import TopNav from "./components/TopNav";
+import HomeScreen from "./screens/HomeScreen";
 
 function App() {
   return (
     <div>
-      <Header />
-      <main className="py-3">
-        <Container>
-          <h1>Welcome</h1>
-          <h1>WORKING!!!!</h1>
-        </Container>
+      <SideNav />
+      <main className="main-content position-relative border-radius-lg ">
+        <TopNav />
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+          </Routes>
+        </Router>
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 }

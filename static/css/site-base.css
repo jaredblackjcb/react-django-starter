@@ -1,6 +1,11 @@
 /*!***********************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./assets/styles/site-base.scss ***!
   \***********************************************************************************************************************/
+.navbar-nav > li {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .navbar-avatar {
   object-fit: cover;
   width: 32px;

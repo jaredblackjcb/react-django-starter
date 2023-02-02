@@ -19,32 +19,6 @@
           <span class="pg-icon"><i class="fa fa-desktop"></i></span><span>Subscription Demo</span>
         </a>
       </li>
-      <li class="nav-item mt-3">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">{% translate "Account pages" %}</h6>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'subscriptions:subscription_details' %}" class="nav-link {% if active_tab == 'subscription' %}active{% endif %}">
-          <span class="pg-icon"><i class="fa fa-repeat"></i></span><span>Subscription</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'users:user_profile' %}" class="nav-link {% if active_tab == 'profile' %}active{% endif %}">
-          <span class="pg-icon"><i class="fa fa-user"></i></span><span>{% translate "Profile" %}</span>
-        </a>
-      </li>
-      {% if user.has_usable_password %}
-        <li class="nav-item">
-          <a href="{% url 'account_change_password' %}" class="nav-link {% if 'accounts/password/change' in request.path %}active{% endif %}">
-            <span class="pg-icon"><i class="fa fa-unlock-alt"></i></span><span>{% translate "Change Password" %}</span>
-          </a>
-        </li>
-      {% endif %}
-      <li class="nav-item">
-        <a href="{% url 'account_logout' %}"
-           class="nav-link {% if 'accounts/logout' in request.path %}active{% endif %}">
-          <span class="pg-icon"><i class="fa fa-sign-out"></i></span><span>{% translate "Sign out" %}</span>
-        </a>
-      </li>
       {% if user.is_superuser %}
       <li class="nav-item mt-3">
         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">{% translate "Admin" %}</h6>

@@ -1,23 +1,33 @@
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
-  <div class="container-fluid py-1 px-3">
-    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-      <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-      </div>
-      <ul class="navbar-nav  justify-content-end">
-        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-          <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-            <div class="sidenav-toggler-inner">
-              <i class="sidenav-toggler-line"></i>
-              <i class="sidenav-toggler-line"></i>
-              <i class="sidenav-toggler-line"></i>
-            </div>
+<nav class="navbar navbar-main navbar-expand-sm py-0 px-3 mx-0 shadow-none" id="navbarBlur" navbar-scroll="true">
+  <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+    <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        {% if request.user.is_authenticated %}
+          <img class="navbar-avatar" src="{{ user.avatar_url }}" />
+        {% endif %}Jared
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+        <li>
+          <a class="dropdown-item" href="{% url 'users:user_profile' %}">
+            <span class="pg-icon"><i class="fa fa-user"></i></span><span>Profile</span>
           </a>
         </li>
-        {% if request.user.is_authenticated %}
-        <li class="nav-item px-3 d-flex align-items-center">
-          <img class="navbar-avatar" src="{{ user.avatar_url}}">
+        <li>
+          <a class="dropdown-item" href="{% url 'subscriptions:subscription_details' %}">
+            <span class="pg-icon"><i class="fa fa-repeat"></i></span><span>Manage Subscription</span>
+          </a>
         </li>
-        {% endif %}
+        <li>
+          <a class="dropdown-item" href="{% url 'account_change_password' %}">
+            <span class="pg-icon"><i class="fa fa-unlock-alt"></i></span><span>Change Password</span>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="{% url 'account_logout' %}">
+            <span class="pg-icon"><i class="fa fa-sign-out"></i></span><span>Sign Out</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>

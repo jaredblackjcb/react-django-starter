@@ -35,41 +35,6 @@ export default function SideNav() {
               <span>Subscription Demo</span>
             </a>
           </li>
-          <li className="nav-item mt-3">
-            <h6 className="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
-          </li>
-          <li className="nav-item">
-            <a href="/subscriptions/" className="nav-link ">
-              <span className="pg-icon">
-                <i className="fa fa-repeat" />
-              </span>
-              <span>Subscription</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/users/profile/" className="nav-link ">
-              <span className="pg-icon">
-                <i className="fa fa-user" />
-              </span>
-              <span>Profile</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/accounts/password/change/" className="nav-link ">
-              <span className="pg-icon">
-                <i className="fa fa-unlock-alt" />
-              </span>
-              <span>Change Password</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/accounts/logout/" className="nav-link ">
-              <span className="pg-icon">
-                <i className="fa fa-sign-out" />
-              </span>
-              <span>Sign out</span>
-            </a>
-          </li>
         </ul>
       </div>
     </aside>

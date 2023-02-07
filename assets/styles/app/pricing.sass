@@ -1,0 +1,93 @@
+section.pricing
+
+.toggle-switch
+	position: relative
+	display: inline-block
+	width: 60px
+	height: 34px
+
+.toggle-input
+	opacity: 0
+	width: 0
+	height: 0
+
+.toggle-slider
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	border-radius: 34px
+	background-color: var(--primary)
+	cursor: pointer
+
+	&:before
+		position: absolute
+		content: ""
+		width: 26px
+		height: 26px
+		border-radius: 26px
+		top: 4px
+		left: 4px
+		background-color: #fff
+		transition: all 0.3s ease
+
+.toggle-input-checked + .toggle-slider
+	background-color: #66bb6a
+
+	&:before
+		transform: translateX(26px)
+
+.toggle-text
+	display: inline-block
+	margin-left: 10px
+
+	.toggle-text-monthly
+
+	.toggle-text-annual
+
+.pricing .card
+	border: none
+	border-radius: 1rem
+	transition: all 0.2s
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1)
+
+	&-title
+		margin: 0.5rem 0
+		font-size: 1.2rem
+		letter-spacing: .1rem
+		font-weight: bold
+
+	&-price
+		font-size: 3rem
+		margin: 0
+		.period
+			font-size: 0.8rem
+
+	&:hover .btn
+		opacity: 1
+
+.pricing hr
+	margin: 1.5rem 0
+
+.pricing ul li
+	margin-bottom: 1rem
+
+.pricing .text-muted
+	opacity: 0.7
+
+.pricing .btn
+	font-size: 80%
+	border-radius: 5rem
+	letter-spacing: .1rem
+	font-weight: bold
+	padding: 1rem
+	opacity: 0.7
+	transition: all 0.2s
+
+.media
+	min-width: 992px
+	card: hover
+	margin-top: -.25rem
+	margin-bottom: .25rem
+	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3)

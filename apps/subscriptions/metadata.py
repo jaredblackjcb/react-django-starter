@@ -172,39 +172,8 @@ ACTIVE_PLAN_INTERVALS = [
 # These are the products that will be shown to users in the UI and allowed to be associated
 # with plans on your side
 ACTIVE_PRODUCTS = [
-    ProductMetadata(
-        stripe_id='',
-        slug='starter',
-        name=_('Starter'),
-        description=_('For hobbyists and side-projects'),
-        features=[
-            _('Up to 100 Widgets'),
-            _('Unlimited Widget Editing'),
-        ],
-    ),
-    ProductMetadata(
-        stripe_id='',
-        slug='standard',
-        name=_('Standard'),
-        description=_('For small businesses and teams'),
-        is_default=True,
-        features=[
-            _('Up to 500 Widgets'),
-            _('Unlimited Widget Editing'),
-            _('Advanced Widget Editing Features'),
-        ],
-    ),
-    ProductMetadata(
-        stripe_id='',
-        slug='premium',
-        name=_('Premium'),
-        description=_('For small businesses and teams'),
-        features=[
-            _('Unlimited Widgets'),
-            _('All Features'),
-            _('Priority Support and Training'),
-        ],
-    ),
+    ProductMetadata(stripe_id='prod_NLBY7mMl7W385u', slug='pro', name='Pro', features=['Pro Feature 1', 'Pro Feature 2', 'Pro Feature 3'], price_displays={}, description='The Pro plan', is_default=True),
+    ProductMetadata(stripe_id='prod_NLBZsWhhdoado3', slug='enterprise', name='Enterprise', features=['Enterprise Feature 1', 'Enterprise Feature 2', 'Enterprise Feature 3'], price_displays={}, description='The Enterprise plan', is_default=False),
 ]
 
 ACTIVE_PRODUCTS_BY_ID = {

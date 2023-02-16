@@ -7,7 +7,6 @@ app_name = 'web'
 urlpatterns = [
     path('', views.home, name='home'),
     path('product/', TemplateView.as_view(template_name="web/product.html"), name='product'),
-    path('pricing/', TemplateView.as_view(template_name="web/pricing.html"), name='pricing'),
     path('about/', TemplateView.as_view(template_name="web/about.html"), name='about'),
     path('terms/', TemplateView.as_view(template_name="web/terms.html"), name='terms'),
 

@@ -71,6 +71,39 @@ def _view_subscription(request, subscription_holder: SubscriptionModelBase):
         'subscription_urls': get_subscription_urls(subscription_holder),
     })
 
+def pricing_plans(request):
+    """
+    Show subscription plan options.
+    """
+    active_products = list(get_active_products_with_metadata())
+
+    def _to_dict(product_with_metadata):
+        # for now, just serialize the minimum amount of data needed for the front-end
+        product_data = {}
+        if PlanInterval.year in ACTIVE_PLAN_INTERVALS:
+            product_data['annual_price'] = {
+                'stripe_id': product_with_metadata.annual_price.id,
+                'payment_amount': product_with_metadata.get_annual_price_display(),
+                'interval': PlanInterval.year,
+            }
+        if PlanInterval.month in ACTIVE_PLAN_INTERVALS:
+            product_data['monthly_price'] = {
+                'stripe_id': product_with_metadata.monthly_price.id,
+                'payment_amount': product_with_metadata.get_monthly_price_display(),
+                'interval': PlanInterval.month,
+                
+            }
+        return product_data
+
+    template_name = 'subscriptions/pricing.html'
+
+    return render(request, template_name, {
+        'stripe_api_key': djstripe_settings.STRIPE_PUBLIC_KEY,
+        'active_products': active_products,
+        'active_products_json': {str(p.stripe_id): _to_dict(p) for p in active_products},
+        'active_plan_intervals': get_active_plan_interval_metadata(),
+        'subscription_urls': get_subscription_urls(None)
+    })
 
 def _upgrade_subscription(request, subscription_holder):
     """

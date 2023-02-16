@@ -7,29 +7,25 @@
     <h4>Get started with the best plan for you.</h4>
   </div>
 </section>
+
 <!-- Monthly/Annual Pricing Toggle -->
-<div class="d-flex justify-content-center mt-5">
-<div class="toggle-container">
-<span class="toggle-text align-bottom">
-  <h6 id="monthly" class="toggle-text-monthly">Monthly</h6>
-</span>
-<label class="toggle-switch">
-  <input type="checkbox" class="toggle-input">
-  <span class="toggle-slider"></span>
-</label>
-<span class="toggle-text align-bottom">
-  <h6 id="annual" class="toggle-text-annual">Annual</h6>
-</span>
-</div>
-</div>
+{% if active_plan_intervals|length > 1 %}
+  <div class="text-center">
+    <div class="btn-group">
+      {% for interval in active_plan_intervals %}
+        <button class="btn btn-outline-primary" id="plan-selector-{{interval.interval}}">{{ interval.name }}</button>
+      {% endfor %}
+    </div>
+    <div class="my-2" id="plan-help" ></div>
+  </div>
+{% endif %}
+  
   <section class="pricing py-5">
-
     <div class="container">
-
       <div class="row">
         <!-- Free Tier -->
         <div class="col-lg-4">
-          <div class="card mb-5 mb-lg-0">
+          <div class="card h-100 mb-5 mb-lg-0">
             <div class="card-body">
               <h5 class="card-title text-muted text-uppercase text-center">Free</h5>
               <h6 class="card-price text-center">$0<span class="period">/month</span></h6>
@@ -66,84 +62,33 @@
             </div>
           </div>
         </div>
-        <!-- Pro Tier -->
-        <div class="col-lg-4">
-          <div class="card mb-5 mb-lg-0">
-            <div class="card-body">
-              <h5 class="card-title text-muted text-uppercase text-center">Pro</h5>
-              <h6 class="card-price text-center">$9<span class="period">/month</span></h6>
+        {% for product in active_products %}
+        <div class="plan col-lg-4" data-product-id="{{ product.stripe_id }}" data-plan-id="{{ product.default_price.id }}">
+          <div class="card h-100 mb-5 mb-lg-0">
+            <div class="card-body d-flex flex-column ">
+              <h5 class="card-title text-muted text-uppercase text-center">{{ product.metadata.name }}</h5>
+              <h6 class="card-price text-center"><span id="price" class="price"></span><span class="period interval"></span></h6>
               <hr />
               <ul class="fa-ul">
+                {% for feature in product.metadata.features %}
                 <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span><strong>5 Users</strong>
+                  <span class="fa-li"><i class="fas fa-check"></i></span><strong>{{ feature }}</strong>
                 </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>50GB Storage
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Community Access
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Private Projects
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Dedicated Phone Support
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Free Subdomain
-                </li>
-                <li class="text-muted">
-                  <span class="fa-li"><i class="fas fa-times"></i></span>Monthly Status Reports
-                </li>
+                {% endfor %}
               </ul>
-              <div class="d-grid">
-                <a href="#" class="btn btn-primary text-uppercase">GET STARTED</a>
+              <div class="mt-auto">
+                <form action="{{ subscription_urls.create_checkout_session }}" method="POST" id="checkout-form">
+                <div class="d-grid">
+                      {% csrf_token %}
+                      <input type="hidden" name="priceId" value="{{ product.metadata.stripe_id }}" id="price-input"/>
+                      <button type="submit" class="btn btn-primary text-uppercase align-self-end" id="subscribe-button">GET STARTED</button>
+                    </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-        <!-- Enterprise Tier -->
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title text-muted text-uppercase text-center">Enterprise</h5>
-              <h6 class="card-price text-center">$49<span class="period">/month</span></h6>
-              <hr />
-              <ul class="fa-ul">
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span><strong>Unlimited Users</strong>
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>150GB Storage
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Public Projects
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Community Access
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Private Projects
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Dedicated Phone Support
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span><strong>Unlimited</strong> Free Subdomains
-                </li>
-                <li>
-                  <span class="fa-li"><i class="fas fa-check"></i></span>Monthly Status Reports
-                </li>
-              </ul>
-              <div class="d-grid">
-                <a href="#" class="btn btn-primary text-uppercase">GET STARTED</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
     </section>
@@ -235,3 +180,65 @@
       </div>
     </section>
 {% endblock %}
+{% block page_js %}
+{{ active_products_json|json_script:'active-products' }}
+<script>
+    const activeProducts = JSON.parse(document.getElementById('active-products').textContent);
+    const defaultAnnual = '{{ default_to_annual }}' === 'True';
+
+    // hook up "monthly"/"annual" selection events
+    const monthlySelector = document.getElementById('plan-selector-month');
+    const annualSelector = document.getElementById('plan-selector-year');
+    const helpLabel = document.getElementById('plan-help');
+    const planElements = document.getElementsByClassName('plan');
+    const annualHelpText = "You're getting two months free by choosing an Annual plan!";
+    const monthlyHelpText = "Upgrade to annual pricing to get two free months.";
+
+    const updatePlans = function (isAnnual) {
+      for (let i = 0; i < planElements.length; i++) {
+        let planElt = planElements[i];
+        let productId = planElt.dataset.productId;
+        let planMetadata = (
+          isAnnual ? activeProducts[productId]['annual_price'] : activeProducts[productId]['monthly_price']
+        );
+        // set data attribute
+        planElt.dataset.planId = planMetadata.stripe_id;
+        planElt.dataset.interval = isAnnual ? 'year' : 'month';
+        planElt.dataset.paymentAmount = planMetadata.payment_amount;
+        let priceElt = planElt.querySelector('.price');
+        priceElt.textContent = planMetadata.payment_amount;
+        let intervalElt = planElt.querySelector('.interval');
+        intervalElt.textContent = '/ ' + planMetadata.interval;
+      }
+    };
+
+    const selectPeriod = function (isAnnual) {
+      if (isAnnual) {
+        if (annualSelector) {
+          annualSelector.classList.add('is-selected', 'is-primary', 'btn-active');
+          monthlySelector.classList.remove('is-selected', 'is-primary', 'btn-active');
+          helpLabel.innerText = annualHelpText;
+        }
+        updatePlans(isAnnual);
+      } else {
+        if (monthlySelector) {
+          annualSelector.classList.remove('is-selected', 'is-primary', 'btn-active');
+          monthlySelector.classList.add('is-selected', 'is-primary', 'btn-active');
+          helpLabel.innerText = monthlyHelpText;
+        }
+        updatePlans(isAnnual);
+      }
+    };
+    selectPeriod(defaultAnnual);
+    if (annualSelector) {
+      annualSelector.addEventListener('click', function (event) {
+        selectPeriod(true);
+      });
+    }
+    if (monthlySelector) {
+      monthlySelector.addEventListener('click', function (event) {
+        selectPeriod(false);
+      });
+    }
+</script>
+{% endblock page_js %}

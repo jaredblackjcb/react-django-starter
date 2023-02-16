@@ -6,6 +6,7 @@ from . import views
 app_name = 'subscriptions'
 
 urlpatterns = [
+    path('pricing/', views.pricing_plans, name='pricing'),
     path('api/active-products/', views.ProductWithMetadataAPI.as_view(), name='products_api'),
     path('', views.subscription, name='subscription_details'),
     path('demo/', views.subscription_demo, name='subscription_demo'),

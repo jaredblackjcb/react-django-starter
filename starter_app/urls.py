@@ -23,7 +23,7 @@ from django.views.i18n import JavaScriptCatalog
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 from apps.web.sitemaps import StaticViewSitemap
-
+from .views import SubscriptionSignupView
 
 sitemaps = {
     'static': StaticViewSitemap(),
@@ -38,6 +38,7 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('accounts/', include('allauth_2fa.urls')),
     path('accounts/', include('allauth.urls')),
+    path('accounts/signup/<str:price_id>/', SubscriptionSignupView.as_view(), name='account_signup'),
     path('users/', include('apps.users.urls')),
     path('subscriptions/', include('apps.subscriptions.urls')),
     path('', include('apps.web.urls')),

@@ -57,7 +57,7 @@
                 </li>
               </ul>
               <div class="d-grid">
-                <a href="#" class="btn btn-primary text-uppercase">GET STARTED</a>
+                <a href="{% url 'account_signup' %}" class="btn btn-primary text-uppercase">GET STARTED</a>
               </div>
             </div>
           </div>
@@ -77,13 +77,9 @@
                 {% endfor %}
               </ul>
               <div class="mt-auto">
-                <form action="{{ subscription_urls.create_checkout_session }}" method="POST" id="checkout-form">
-                <div class="d-grid">
-                      {% csrf_token %}
-                      <input type="hidden" name="priceId" value="{{ product.metadata.stripe_id }}" id="price-input"/>
-                      <button type="submit" class="btn btn-primary text-uppercase align-self-end" id="subscribe-button">GET STARTED</button>
-                    </div>
-                </form>
+                  <div class="d-grid">
+                    <a id="plan-selector-btn" href="{% url 'account_signup' price_id=product.annual_price.id %}" class="btn btn-primary text-uppercase">GET STARTED</a>
+                  </div>
               </div>
             </div>
           </div>
@@ -201,7 +197,7 @@
         let planMetadata = (
           isAnnual ? activeProducts[productId]['annual_price'] : activeProducts[productId]['monthly_price']
         );
-        // set data attribute
+        // set data attributes of pricing plan elements
         planElt.dataset.planId = planMetadata.stripe_id;
         planElt.dataset.interval = isAnnual ? 'year' : 'month';
         planElt.dataset.paymentAmount = planMetadata.payment_amount;
@@ -209,6 +205,10 @@
         priceElt.textContent = planMetadata.payment_amount;
         let intervalElt = planElt.querySelector('.interval');
         intervalElt.textContent = '/ ' + planMetadata.interval;
+        // set href of the button on each pricing plan to pass in the correct
+        // stripe price_idurl param to the signup page
+        let planSelectorBtn = planElt.querySelector('#plan-selector-btn');
+        planSelectorBtn.setAttribute('href', '../../accounts/signup/' + planMetadata.stripe_id + '/');
       }
     };
 
